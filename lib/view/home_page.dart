@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:slidernews/view/detail_page.dart';
 import 'package:slidernews/viewmodel/cubit/news_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -66,12 +65,6 @@ class InComingListsWidget extends StatelessWidget {
                 elevation: 5,
                 child: InkWell(
                   onTap: () {
-                    /* Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              DetailPage(articles: state.apiArticles![index]),
-                        )); */
                     _goUrl(state.apiArticles![index].url);
                   },
                   child: Column(
@@ -104,8 +97,6 @@ class InComingListsWidget extends StatelessWidget {
       await launchUrl(Uri.parse(url));
     } else {
       print("URL AÇILAMADI!");
-      
     }
-  } 
-
+  }
 }
