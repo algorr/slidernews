@@ -11,7 +11,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     _callServiceInit(context);
     return Scaffold(
-      backgroundColor: Colors.amber,
       body: BlocBuilder<NewsCubit, NewsState>(
         builder: (context, state) {
           if (state is NewsInitial) {
