@@ -22,6 +22,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.amber,
         primarySwatch: Colors.amber,
+        bottomNavigationBarTheme:  BottomNavigationBarThemeData(
+            backgroundColor: BottomNaviConsts.bottomNaviBackgroundColor,
+            selectedItemColor: BottomNaviConsts.activeItemColor,
+            unselectedItemColor: BottomNaviConsts.inactiveItemColor),
         appBarTheme: AppBarTheme(
           backgroundColor: MainConsts.appBarColor,
           titleTextStyle: TextStyle(

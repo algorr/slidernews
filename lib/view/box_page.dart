@@ -45,7 +45,7 @@ class AppBottomNaviBar extends StatelessWidget {
         BottomNavigationBarItem(
             icon: Icon(Icons.sports_rounded), label: 'Sport'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.telegram_rounded), label: 'Technology'),
+            icon: Icon(Icons.biotech_rounded), label: 'Technology'),
       ],
     );
   }
