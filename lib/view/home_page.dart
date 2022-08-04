@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:slidernews/view/detail_page.dart';
 import 'package:slidernews/viewmodel/cubit/news_cubit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class InComingListsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return LiquidPullToRefresh(
       color: Colors.deepPurple,
-      backgroundColor: Color.fromARGB(255, 190, 169, 227),
+      backgroundColor: const Color.fromARGB(255, 190, 169, 227),
       onRefresh: () async {
         await context.read<NewsCubit>().fetch();
         print("refresh işlemi başarılı");
@@ -65,12 +66,13 @@ class InComingListsWidget extends StatelessWidget {
                 elevation: 5,
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
+                    /* Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
                               DetailPage(articles: state.apiArticles![index]),
-                        ));
+                        )); */
+                    _goUrl(state.apiArticles![index].url);
                   },
                   child: Column(
                     children: [
@@ -96,4 +98,14 @@ class InComingListsWidget extends StatelessWidget {
           }),
     );
   }
+
+  Future<void> _goUrl(String? url) async {
+    if (await canLaunchUrl(Uri.parse(url!))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      print("URL AÇILAMADI!");
+      
+    }
+  } 
+
 }
