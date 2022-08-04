@@ -3,8 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slidernews/consts/main_consts.dart';
 import 'package:slidernews/repository/news_repository.dart';
 import 'package:slidernews/service/news_api_service.dart';
+import 'package:slidernews/view/box_page.dart';
 import 'package:slidernews/viewmodel/cubit/news_cubit.dart';
-import 'view/home_page.dart';
+import 'package:slidernews/viewmodel/sport_cubit/cubit/sportcubit_cubit.dart';
+import 'package:slidernews/viewmodel/tabbar_cubit/cubit/tabbar_cubit.dart';
+import 'package:slidernews/viewmodel/technology_cubit/cubit/technologycubit_cubit.dart';
+import 'view/business_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -27,22 +31,35 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              MainConsts.appBarTitle,
-            ),
-            centerTitle: true,
-            leading: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.person_rounded,
-                  color: MainConsts.appBarTextColor,
-                )),
+        appBar: AppBar(
+          title: Text(
+            MainConsts.appBarTitle,
           ),
-          body: BlocProvider(
+          centerTitle: true,
+          leading: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.person_rounded,
+                color: MainConsts.appBarTextColor,
+              )),
+        ),
+        body: MultiBlocProvider(providers: [
+          BlocProvider(
             create: (context) => NewsCubit(NewsApiRepository(NewsApiService())),
-            child: const HomePage(),
-          )),
+          ),
+          BlocProvider(
+            create: (context) => TabbarCubit(),
+          ),
+          BlocProvider(
+            create: (context) =>
+                SportcubitCubit(NewsApiRepository(NewsApiService())),
+          ),
+          BlocProvider(
+            create: (context) =>
+                TechnologycubitCubit(NewsApiRepository(NewsApiService())),
+          ),
+        ], child: const BoxPage()),
+      ),
     );
   }
 }

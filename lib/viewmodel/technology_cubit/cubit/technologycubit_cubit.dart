@@ -3,27 +3,27 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slidernews/model/articles.dart';
 import 'package:slidernews/repository/news_repository.dart';
 
-part 'news_state.dart';
+part 'technologycubit_state.dart';
 
-class NewsCubit extends Cubit<NewsState> {
+class TechnologycubitCubit extends Cubit<TechnologycubitState> {
   final NewsApiRepository _repository;
-  NewsCubit(this._repository) : super(NewsInitial());
+  TechnologycubitCubit(this._repository) : super(TechnologycubitInitial());
 
   Future<List<Articles>?> fetch() async {
-    final articleList = await _repository.fetchBusineesArticles();
-    emit(NewsLoadingState());
+    final articleList = await _repository.fetchTechnologyArticles();
+    emit(TechnologyLoadingState());
     if (articleList!.isNotEmpty) {
       print("Article listesi dolu!");
-      emit(NewsLoadedState(articleList));
+      emit(TechnologyLoadedState(articleList));
     } else {
-      emit(NewsErrorState());
+      emit(TechnologyErrorState());
     }
     return null;
   }
 
+
   Future<void> init() async {
-    await _repository.fetchBusineesArticles();
+    await _repository.fetchTechnologyArticles();
     await fetch();
-    //emit(NewsInitial());
   }
 }

@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:slidernews/viewmodel/cubit/news_cubit.dart';
+import 'package:slidernews/viewmodel/sport_cubit/cubit/sportcubit_cubit.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class SportPage extends StatelessWidget {
+  const SportPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     _callServiceInit(context);
     return Scaffold(
-      body: BlocBuilder<NewsCubit, NewsState>(
+      body: BlocBuilder<SportcubitCubit, SportcubitState>(
         builder: (context, state) {
-          if (state is NewsInitial) {
+          if (state is SportcubitInitial) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          if (state is NewsLoadingState) {
+          if (state is SportLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-          if (state is NewsLoadedState) {
+          if (state is SportLoadedState) {
             return InComingListsWidget(
               state: state,
             );
@@ -38,19 +38,19 @@ class HomePage extends StatelessWidget {
 }
 
 void _callServiceInit(BuildContext context) {
-  BlocProvider.of<NewsCubit>(context).init();
+  BlocProvider.of<SportcubitCubit>(context).init();
 }
 
 class InComingListsWidget extends StatelessWidget {
   const InComingListsWidget({Key? key, required this.state}) : super(key: key);
-  final NewsLoadedState state;
+  final SportLoadedState state;
   @override
   Widget build(BuildContext context) {
     return LiquidPullToRefresh(
       color: Colors.deepPurple,
       backgroundColor: const Color.fromARGB(255, 190, 169, 227),
       onRefresh: () async {
-        await context.read<NewsCubit>().fetch();
+        await context.read<SportcubitCubit>().fetch();
         print("refresh işlemi başarılı");
       },
       child: ListView.builder(
