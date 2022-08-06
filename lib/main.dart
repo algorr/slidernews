@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slidernews/consts/main_consts.dart';
@@ -19,34 +21,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.amber,
-        primarySwatch: Colors.amber,
-        bottomNavigationBarTheme:  BottomNavigationBarThemeData(
-            backgroundColor: BottomNaviConsts.bottomNaviBackgroundColor,
-            selectedItemColor: BottomNaviConsts.activeItemColor,
-            unselectedItemColor: BottomNaviConsts.inactiveItemColor),
-        appBarTheme: AppBarTheme(
-          backgroundColor: MainConsts.appBarColor,
-          titleTextStyle: TextStyle(
-              color: MainConsts.appBarTextColor,
-              fontSize: MainConsts.appBarTextSize),
-          iconTheme: IconThemeData(color: MainConsts.appBarTextColor),
-        ),
-      ),
+      theme: ThemeDataOfApp(),
       home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            MainConsts.appBarTitle,
-          ),
-          centerTitle: true,
-          leading: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.person_rounded,
-                color: MainConsts.appBarTextColor,
-              )),
-        ),
+        appBar: NewsAppBar(),
         body: MultiBlocProvider(providers: [
           BlocProvider(
             create: (context) => NewsCubit(NewsApiRepository(NewsApiService())),
@@ -63,6 +40,45 @@ class MyApp extends StatelessWidget {
                 TechnologycubitCubit(NewsApiRepository(NewsApiService())),
           ),
         ], child: const BoxPage()),
+      ),
+    );
+  }
+
+  AppBar NewsAppBar() {
+    return AppBar(
+      title: Text(
+        MainConsts.appBarTitle,
+        style: TextStyle(
+            fontWeight: FontWeight.bold, color: MainConsts.appBarTitleColor),
+      ),
+      centerTitle: false,
+      actions: const [
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            minRadius: 25,
+            maxRadius: 35,
+            backgroundImage: AssetImage("assets/images/person.jpg"),
+          ),
+        )
+      ],
+    );
+  }
+
+  ThemeData ThemeDataOfApp() {
+    return ThemeData(
+      scaffoldBackgroundColor: MainConsts.scaffoldBackgroundColor,
+      primarySwatch: MainConsts.scaffoldColor,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: BottomNaviConsts.bottomNaviBackgroundColor,
+          selectedItemColor: BottomNaviConsts.activeItemColor,
+          unselectedItemColor: BottomNaviConsts.inactiveItemColor),
+      appBarTheme: AppBarTheme(
+        backgroundColor: MainConsts.appBarColor,
+        titleTextStyle: TextStyle(
+            color: MainConsts.appBarTextColor,
+            fontSize: MainConsts.appBarTextSize),
+        iconTheme: IconThemeData(color: MainConsts.appBarTextColor),
       ),
     );
   }

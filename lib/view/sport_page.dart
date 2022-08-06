@@ -82,6 +82,13 @@ class InComingListsWidget extends StatelessWidget {
                         subtitle: Text(state.apiArticles![index].content ?? ""),
                         leading: Text(state.apiArticles![index].author ?? ""),
                       ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ArticlePublishTimeWidget(index),
+                          ArticleButtonsWidget()
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -89,6 +96,32 @@ class InComingListsWidget extends StatelessWidget {
             );
           }),
     );
+  }
+
+  Row ArticleButtonsWidget() {
+    return Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Icon(Icons.favorite_border_rounded),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Icon(Icons.share_outlined),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Icon(Icons.more_vert_rounded),
+                          ],
+                        );
+  }
+
+  Row ArticlePublishTimeWidget(int index) {
+    return Row(
+                          children: [
+                            //Text(state.apiArticles![index].author!),
+                            Text(state.apiArticles![index].publishedAt!),
+                          ],
+                        );
   }
 
   Future<void> _goUrl(String? url) async {
