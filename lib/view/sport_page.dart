@@ -71,11 +71,16 @@ class InComingListsWidget extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * .2,
-                        child: Image.network(
+                        child: 
+                        state.apiArticles![index].urlToImage !=null ? 
+                        Image.network(
                           state.apiArticles![index].urlToImage ??
                               "https://picsum.photos/200/300",
                           fit: BoxFit.fill,
-                        ),
+                           errorBuilder: (context, object, stacktrace) {
+                return Container(color: Colors.red);
+              },
+                        ) : Image.asset("assets/images/logo.png"),
                       ),
                       ListTile(
                         title: Text(state.apiArticles![index].title!),

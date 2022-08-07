@@ -10,6 +10,7 @@ class MainConsts {
   static double appBarTextSize = 24;
   static Color dividerColor = Colors.grey;
   static double dividerThickness = 1;
+  static Color liquidRefreshColor =  const Color(0XFFB1D0E0);
 }
 
 

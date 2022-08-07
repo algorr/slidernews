@@ -49,7 +49,7 @@ class InComingListsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return LiquidPullToRefresh(
       color: Colors.white,
-      backgroundColor: Colors.red,
+      backgroundColor: MainConsts.liquidRefreshColor,
       onRefresh: () async {
         await context.read<NewsCubit>().fetch();
       },
@@ -98,11 +98,16 @@ class InComingListsWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(15),
-          child: Image.network(
+          child:
+          state.apiArticles![index].urlToImage !=null ? 
+           Image.network(
             state.apiArticles![index].urlToImage ??
                 "https://picsum.photos/200/300",
             fit: BoxFit.fill,
-          ),
+             errorBuilder: (context, object, stacktrace) {
+                return Container(color: Colors.red);
+              },
+          ) : Image.asset("assets/images/logo.png"),
         ),
       ),
     );
