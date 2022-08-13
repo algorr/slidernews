@@ -17,16 +17,19 @@ class BusinessPage extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<NewsCubit, NewsState>(
         builder: (context, state) {
+          // according to news initial state
           if (state is NewsInitial) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
+           // according to news loading state
           if (state is NewsLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
+           // according to news loaded state
           if (state is NewsLoadedState) {
             var apiResult = state.apiArticles;
             return BlocBuilder<TabbarCubit, int>(
@@ -65,6 +68,7 @@ class BusinessPage extends StatelessWidget {
     );
   }
 
+//Contains all page body components
   Container BusinessPageAllBodyWidget(
       Size size, List<Articles> apiResult, int index) {
     return Container(
@@ -81,6 +85,7 @@ class BusinessPage extends StatelessWidget {
     );
   }
 
+//Contains button components
   Expanded BusinessPageButtonsWidget(List<Articles> apiResult, int index) {
     return Expanded(
       child: Align(
@@ -108,6 +113,7 @@ class BusinessPage extends StatelessWidget {
     );
   }
 
+//Contains body components for api news body
   Padding BusinessPageBodyWidget(List<Articles> apiResult, int index) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
@@ -119,6 +125,7 @@ class BusinessPage extends StatelessWidget {
     );
   }
 
+//Contains title component for api news title
   Padding BusinessPageTitleWidget(List<Articles> apiResult, int index) {
     return Padding(
       padding: const EdgeInsets.only(top: 15, right: 20, left: 20),
@@ -131,6 +138,7 @@ class BusinessPage extends StatelessWidget {
     );
   }
 
+// Contains image component for api image
   Image BusinessPageImageWidget(List<Articles> apiResult, int index) {
     return Image.network(
       apiResult[index].urlToImage ?? "https://via.placeholder.com/600x400.",
@@ -139,10 +147,12 @@ class BusinessPage extends StatelessWidget {
   }
 }
 
+// execute service init while build method
 void _callServiceInit(BuildContext context) {
   BlocProvider.of<NewsCubit>(context).init();
 }
 
+// execute url launcher according to api index news url
 Future<void> _goUrl(String? url) async {
   if (await canLaunchUrl(Uri.parse(url!))) {
     await launchUrl(Uri.parse(url));

@@ -20,6 +20,7 @@ class BoxPage extends StatelessWidget {
             child: IndexedStack(
               index: state,
               children: const [
+                //All pages app has
                 BusinessPage(),
                 SportPage(),
                 TechnologyPage(),
