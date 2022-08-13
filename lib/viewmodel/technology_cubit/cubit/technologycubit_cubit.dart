@@ -13,7 +13,6 @@ class TechnologycubitCubit extends Cubit<TechnologycubitState> {
     final articleList = await _repository.fetchTechnologyArticles();
     emit(TechnologyLoadingState());
     if (articleList!.isNotEmpty) {
-      print("Article listesi dolu!");
       emit(TechnologyLoadedState(articleList));
     } else {
       emit(TechnologyErrorState());

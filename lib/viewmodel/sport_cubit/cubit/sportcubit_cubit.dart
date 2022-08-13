@@ -13,7 +13,6 @@ class SportcubitCubit extends Cubit<SportcubitState> {
     final articleList = await _repository.fetchSportArticles();
     emit(SportLoadingState());
     if (articleList!.isNotEmpty) {
-      print("Article listesi dolu!");
       emit(SportLoadedState(articleList));
     } else {
       emit(SportErrorState());

@@ -8,15 +8,19 @@ part 'news_state.dart';
 class NewsCubit extends Cubit<NewsState> {
   final NewsApiRepository _repository;
   NewsCubit(this._repository) : super(NewsInitial());
+   int index = 0;
+  
 
   Future<List<Articles>?> fetch() async {
     final articleList = await _repository.fetchBusineesArticles();
     emit(NewsLoadingState());
+    print(state);
     if (articleList!.isNotEmpty) {
-      print("Article listesi dolu!");
       emit(NewsLoadedState(articleList));
+      print(state);
     } else {
       emit(NewsErrorState());
+      print(state);
     }
     return null;
   }
@@ -25,5 +29,10 @@ class NewsCubit extends Cubit<NewsState> {
     await _repository.fetchBusineesArticles();
     await fetch();
     //emit(NewsInitial());
+  }
+
+  void updateIndex(){
+    index += index;
+    emit(NewsUpdateIndex(index));
   }
 }

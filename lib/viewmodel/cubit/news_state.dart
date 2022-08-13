@@ -25,3 +25,10 @@ class NewsErrorState extends NewsState {
   @override
   List<Object?> get props => [];
 }
+
+class NewsUpdateIndex extends NewsState {
+ final int index;
+  NewsUpdateIndex(this.index);
+  @override
+  List<Object?> get props => [index];
+}

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:slidernews/consts/main_consts.dart';
@@ -10,7 +8,6 @@ import 'package:slidernews/viewmodel/cubit/news_cubit.dart';
 import 'package:slidernews/viewmodel/sport_cubit/cubit/sportcubit_cubit.dart';
 import 'package:slidernews/viewmodel/tabbar_cubit/cubit/tabbar_cubit.dart';
 import 'package:slidernews/viewmodel/technology_cubit/cubit/technologycubit_cubit.dart';
-import 'view/business_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -38,6 +35,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) =>
                 TechnologycubitCubit(NewsApiRepository(NewsApiService())),
+          ),
+           BlocProvider(
+            create: (context) =>
+               TabbarCubit(),
           ),
         ], child: const BoxPage()),
       ),

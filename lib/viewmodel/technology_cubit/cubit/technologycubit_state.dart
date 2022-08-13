@@ -12,9 +12,9 @@ class TechnologycubitInitial extends TechnologycubitState {}
 class TechnologyLoadingState extends TechnologycubitState {}
 
 class TechnologyLoadedState extends TechnologycubitState {
-  List<Articles>? apiArticles;
+ final List<Articles>? apiArticles;
 
-  TechnologyLoadedState(this.apiArticles);
+  const TechnologyLoadedState(this.apiArticles);
 }
 
 class TechnologyErrorState extends TechnologycubitState {}

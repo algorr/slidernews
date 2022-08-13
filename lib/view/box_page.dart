@@ -19,7 +19,11 @@ class BoxPage extends StatelessWidget {
           body: SafeArea(
             child: IndexedStack(
               index: state,
-              children: const [BusinessPage(), SportPage(), TechnologyPage()],
+              children: const [
+                BusinessPage(),
+                SportPage(),
+                TechnologyPage(),
+              ],
             ),
           ),
         );

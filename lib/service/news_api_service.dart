@@ -26,7 +26,7 @@ final baseUrlForSport =
       return articleList;
       }
     } catch (e) {
-      print("HATA : $e");
+      throw Exception();
     }
     return null;
   }
