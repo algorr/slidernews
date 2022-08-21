@@ -32,13 +32,14 @@ class BusinessPage extends StatelessWidget {
            // according to news loaded state
           if (state is NewsLoadedState) {
             var apiResult = state.apiArticles;
+            var controller = context.read<TabbarCubit>().controller;
             return BlocBuilder<TabbarCubit, int>(
               builder: (context, state) {
                 return SafeArea(
                   child: PageView.builder(
                     itemCount: apiResult!.length,
                     scrollDirection: Axis.vertical,
-                    controller: context.read<TabbarCubit>().controller,
+                    controller: controller,
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
@@ -51,7 +52,7 @@ class BusinessPage extends StatelessWidget {
                             await context.read<NewsCubit>().fetch();
                           },
                           child:
-                              BusinessPageAllBodyWidget(size, apiResult, index),
+                              businessPageAllBodyWidget(size, apiResult, index),
                         ),
                       );
                     },
@@ -69,24 +70,24 @@ class BusinessPage extends StatelessWidget {
   }
 
 //Contains all page body components
-  Container BusinessPageAllBodyWidget(
+  Container businessPageAllBodyWidget(
       Size size, List<Articles> apiResult, int index) {
     return Container(
       height: size.height,
       width: size.width,
       child: Column(
         children: [
-          BusinessPageImageWidget(apiResult, index),
-          BusinessPageTitleWidget(apiResult, index),
-          BusinessPageBodyWidget(apiResult, index),
-          BusinessPageButtonsWidget(apiResult, index)
+          businessPageImageWidget(apiResult, index),
+          businessPageTitleWidget(apiResult, index),
+          businessPageBodyWidget(apiResult, index),
+          businessPageButtonsWidget(apiResult, index)
         ],
       ),
     );
   }
 
 //Contains button components
-  Expanded BusinessPageButtonsWidget(List<Articles> apiResult, int index) {
+  Expanded businessPageButtonsWidget(List<Articles> apiResult, int index) {
     return Expanded(
       child: Align(
         alignment: FractionalOffset.bottomCenter,
@@ -114,7 +115,7 @@ class BusinessPage extends StatelessWidget {
   }
 
 //Contains body components for api news body
-  Padding BusinessPageBodyWidget(List<Articles> apiResult, int index) {
+  Padding businessPageBodyWidget(List<Articles> apiResult, int index) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: ListTile(
@@ -126,7 +127,7 @@ class BusinessPage extends StatelessWidget {
   }
 
 //Contains title component for api news title
-  Padding BusinessPageTitleWidget(List<Articles> apiResult, int index) {
+  Padding businessPageTitleWidget(List<Articles> apiResult, int index) {
     return Padding(
       padding: const EdgeInsets.only(top: 15, right: 20, left: 20),
       child: Center(
@@ -139,7 +140,7 @@ class BusinessPage extends StatelessWidget {
   }
 
 // Contains image component for api image
-  Image BusinessPageImageWidget(List<Articles> apiResult, int index) {
+  Image businessPageImageWidget(List<Articles> apiResult, int index) {
     return Image.network(
       apiResult[index].urlToImage ?? "https://via.placeholder.com/600x400.",
       fit: BoxFit.fill,

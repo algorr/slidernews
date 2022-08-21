@@ -18,34 +18,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeDataOfApp(),
+      theme: themeDataOfApp(),
       home: Scaffold(
-        appBar: NewsAppBar(),
-        body: MultiBlocProvider(providers: [
-          BlocProvider(
-            create: (context) => NewsCubit(NewsApiRepository(NewsApiService())),
-          ),
-          BlocProvider(
-            create: (context) => TabbarCubit(),
-          ),
-          BlocProvider(
-            create: (context) =>
-                SportcubitCubit(NewsApiRepository(NewsApiService())),
-          ),
-          BlocProvider(
-            create: (context) =>
-                TechnologycubitCubit(NewsApiRepository(NewsApiService())),
-          ),
-           BlocProvider(
-            create: (context) =>
-               TabbarCubit(),
-          ),
-        ], child: const BoxPage()),
+        appBar: newsAppBar(),
+        body: const MachineMultiBlocProvider(),
       ),
     );
   }
 
-  AppBar  NewsAppBar() {
+  AppBar  newsAppBar() {
     return AppBar(
       title: Text(
         MainConsts.appBarTitle,
@@ -66,7 +47,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  ThemeData ThemeDataOfApp() {
+  ThemeData themeDataOfApp() {
     return ThemeData(
       scaffoldBackgroundColor: MainConsts.scaffoldBackgroundColor,
       primarySwatch: MainConsts.scaffoldColor,
@@ -82,5 +63,35 @@ class MyApp extends StatelessWidget {
         iconTheme: IconThemeData(color: MainConsts.appBarTextColor),
       ),
     );
+  }
+}
+
+class MachineMultiBlocProvider extends StatelessWidget {
+  const MachineMultiBlocProvider({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(providers: [
+      BlocProvider(
+        create: (context) => NewsCubit(NewsApiRepository(NewsApiService())),
+      ),
+      BlocProvider(
+        create: (context) => TabbarCubit(),
+      ),
+      BlocProvider(
+        create: (context) =>
+            SportcubitCubit(NewsApiRepository(NewsApiService())),
+      ),
+      BlocProvider(
+        create: (context) =>
+            TechnologycubitCubit(NewsApiRepository(NewsApiService())),
+      ),
+       BlocProvider(
+        create: (context) =>
+           TabbarCubit(),
+      ),
+    ], child: const BoxPage());
   }
 }

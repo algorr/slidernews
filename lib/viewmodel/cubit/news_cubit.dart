@@ -14,13 +14,10 @@ class NewsCubit extends Cubit<NewsState> {
   Future<List<Articles>?> fetch() async {
     final articleList = await _repository.fetchBusineesArticles();
     emit(NewsLoadingState());
-    print(state);
     if (articleList!.isNotEmpty) {
       emit(NewsLoadedState(articleList));
-      print(state);
     } else {
       emit(NewsErrorState());
-      print(state);
     }
     return null;
   }

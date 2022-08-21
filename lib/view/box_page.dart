@@ -33,6 +33,8 @@ class BoxPage extends StatelessWidget {
   }
 }
 
+
+//bottom navigation bar
 class AppBottomNaviBar extends StatelessWidget {
   const AppBottomNaviBar({Key? key, required this.state}) : super(key: key);
   final int state;

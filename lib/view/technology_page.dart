@@ -29,13 +29,14 @@ class TechnologyPage extends StatelessWidget {
           }
           if (state is TechnologyLoadedState) {
            var apiResult = state.apiArticles;
+           var controller = context.read<TabbarCubit>().controller;
             return BlocBuilder<TabbarCubit, int>(
               builder: (context, state) {
                 return SafeArea(
                   child: PageView.builder(
                     itemCount: apiResult!.length,
                     scrollDirection: Axis.vertical,
-                    controller: context.read<TabbarCubit>().controller,
+                    controller: controller,
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
@@ -47,7 +48,7 @@ class TechnologyPage extends StatelessWidget {
                           onRefresh: () async {
                             await context.read<TechnologycubitCubit>().fetch();
                           },
-                          child: TechnologyPageAllBodyWidget(size, apiResult, index),
+                          child: technologyPageAllBodyWidget(size, apiResult, index),
                         ),
                       );
                     },
@@ -64,22 +65,22 @@ class TechnologyPage extends StatelessWidget {
     );
   }
 
-  Container TechnologyPageAllBodyWidget(Size size, List<Articles> apiResult, int index) {
+  Container technologyPageAllBodyWidget(Size size, List<Articles> apiResult, int index) {
     return Container(
                           height: size.height,
                           width: size.width,
                           child: Column(
                             children: [
-                              TechnologyPageImageWidget(apiResult, index),
-                              TechnologyPageTitleWidget(apiResult, index),
-                              TechnologyPageBodyWidget(apiResult, index),
-                              TechnologyPageButtonsWidget(apiResult, index)
+                              technologyPageImageWidget(apiResult, index),
+                              technologyPageTitleWidget(apiResult, index),
+                              technologyPageBodyWidget(apiResult, index),
+                              technologyPageButtonsWidget(apiResult, index)
                             ],
                           ),
                         );
   }
 
-  Expanded TechnologyPageButtonsWidget(List<Articles> apiResult, int index) {
+  Expanded technologyPageButtonsWidget(List<Articles> apiResult, int index) {
     return Expanded(
                                 child: Align(
                                   alignment: FractionalOffset.bottomCenter,
@@ -113,7 +114,7 @@ class TechnologyPage extends StatelessWidget {
                               );
   }
 
-  Padding TechnologyPageBodyWidget(List<Articles> apiResult, int index) {
+  Padding technologyPageBodyWidget(List<Articles> apiResult, int index) {
     return Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: ListTile(
@@ -126,7 +127,7 @@ class TechnologyPage extends StatelessWidget {
                               );
   }
 
-  Padding TechnologyPageTitleWidget(List<Articles> apiResult, int index) {
+  Padding technologyPageTitleWidget(List<Articles> apiResult, int index) {
     return Padding(
                                 padding: const EdgeInsets.only(
                                     top: 15, right: 20, left: 20),
@@ -141,7 +142,7 @@ class TechnologyPage extends StatelessWidget {
                               );
   }
 
-  Image TechnologyPageImageWidget(List<Articles> apiResult, int index) {
+  Image technologyPageImageWidget(List<Articles> apiResult, int index) {
     return Image.network(
                                 apiResult[index].urlToImage ??
                                     "https://via.placeholder.com/600x400.",

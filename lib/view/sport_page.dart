@@ -32,13 +32,14 @@ class SportPage extends StatelessWidget {
           //according to sports loaded state
           if (state is SportLoadedState) {
             var apiResult = state.apiArticles;
+            var controller = context.read<TabbarCubit>().controller;
             return BlocBuilder<TabbarCubit, int>(
               builder: (context, state) {
                 return SafeArea(
                   child: PageView.builder(
                     itemCount: apiResult!.length,
                     scrollDirection: Axis.vertical,
-                    controller: context.read<TabbarCubit>().controller,
+                    controller: controller,
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
@@ -50,7 +51,7 @@ class SportPage extends StatelessWidget {
                           onRefresh: () async {
                             await context.read<SportcubitCubit>().fetch();
                           },
-                          child: SportPageAllBodyWidget(size, apiResult, index),
+                          child: sportPageAllBodyWidget(size, apiResult, index),
                         ),
                       );
                     },
@@ -68,24 +69,24 @@ class SportPage extends StatelessWidget {
   }
 
 // Contains all pageview builder body components
-  Container SportPageAllBodyWidget(
+  Container sportPageAllBodyWidget(
       Size size, List<Articles> apiResult, int index) {
     return Container(
       height: size.height,
       width: size.width,
       child: Column(
         children: [
-          SportPageImageWidget(apiResult, index),
-          SportPageTitleWidget(apiResult, index),
-          SportPageBodyWidget(apiResult, index),
-          SportPageButtonsWidget(apiResult, index)
+          sportPageImageWidget(apiResult, index),
+          sportPageTitleWidget(apiResult, index),
+          sportPageBodyWidget(apiResult, index),
+          sportPageButtonsWidget(apiResult, index)
         ],
       ),
     );
   }
 
  // Contains button components
-  Expanded SportPageButtonsWidget(List<Articles> apiResult, int index) {
+  Expanded sportPageButtonsWidget(List<Articles> apiResult, int index) {
     return Expanded(
       child: Align(
         alignment: FractionalOffset.bottomCenter,
@@ -113,7 +114,7 @@ class SportPage extends StatelessWidget {
   }
 
 // Contains body components
-  Padding SportPageBodyWidget(List<Articles> apiResult, int index) {
+  Padding sportPageBodyWidget(List<Articles> apiResult, int index) {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
       child: ListTile(
@@ -125,7 +126,7 @@ class SportPage extends StatelessWidget {
   }
 
   // Contains title component
-  Padding SportPageTitleWidget(List<Articles> apiResult, int index) {
+  Padding sportPageTitleWidget(List<Articles> apiResult, int index) {
     return Padding(
       padding: const EdgeInsets.only(top: 15, right: 20, left: 20),
       child: Center(
@@ -138,7 +139,7 @@ class SportPage extends StatelessWidget {
   }
 
   // Contains image component
-  Image SportPageImageWidget(List<Articles> apiResult, int index) {
+  Image sportPageImageWidget(List<Articles> apiResult, int index) {
     return Image.network(
       apiResult[index].urlToImage ?? "https://via.placeholder.com/600x400.",
       fit: BoxFit.fill,
