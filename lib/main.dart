@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  AppBar NewsAppBar() {
+  AppBar  NewsAppBar() {
     return AppBar(
       title: Text(
         MainConsts.appBarTitle,
